@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>APK BUG STORE | DENZ</title>
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
+body{
+background:#050505;
+color:#ff2a2a;
+overflow-x:hidden;
+min-height:100vh;
+}
+
+body::before{
+content:"";
+position:fixed;
+inset:0;
+background:
+radial-gradient(circle at top,#220000 0%,#080808 45%,#000 100%);
+z-index:-2;
+}
+
+canvas{
+position:fixed;
+top:0;
+left:0;
+z-index:-1;
+opacity:.25;
+}
+
+.header{
+text-align:center;
+padding:24px 15px 10px;
+}
+
+.header h1{
+font-size:28px;
+letter-spacing:4px;
+color:#fff;
+text-shadow:0 0 10px #ff0000,0 0 25px #ff0000;
+}
+
+.header p{
+font-size:12px;
+margin-top:8px;
+color:#ff7070;
+}
+
+.wrap{
+max-width:430px;
+margin:auto;
+padding:15px;
+display:grid;
+gap:18px;
+}
+
+.card{
+background:rgba(0,0,0,.72);
+border:1px solid #ff2a2a;
+border-radius:18px;
+padding:14px;
+box-shadow:0 0 15px rgba(255,0,0,.25);
+}
+
+.apkimg{
+width:100%;
+height:190px;
+object-fit:cover;
+border-radius:14px;
+border:1px solid #ff2a2a;
+margin-bottom:12px;
+}
+
+.name{
+font-size:21px;
+font-weight:bold;
+color:#fff;
+margin-bottom:10px;
+text-shadow:0 0 8px #ff0000;
+}
+
+.btn{
+width:100%;
+padding:12px;
+border:none;
+border-radius:12px;
+background:#ff1a1a;
+color:#fff;
+font-weight:bold;
+font-size:15px;
+cursor:pointer;
+box-shadow:0 0 15px rgba(255,0,0,.55);
+}
+
+.btn:active{
+transform:scale(.97);
+}
+
+.popup{
+position:fixed;
+inset:0;
+background:rgba(0,0,0,.82);
+display:none;
+justify-content:center;
+align-items:center;
+padding:20px;
+z-index:99;
+}
+
+.box{
+width:100%;
+max-width:360px;
+background:#090909;
+border:1px solid #ff2a2a;
+border-radius:18px;
+padding:18px;
+box-shadow:0 0 25px rgba(255,0,0,.45);
+max-height:85vh;
+overflow:auto;
+}
+
+.box h2{
+color:#fff;
+font-size:22px;
+margin-bottom:14px;
+text-shadow:0 0 10px #ff0000;
+}
+
+.pkg{
+width:100%;
+padding:12px;
+margin-bottom:10px;
+border:none;
+border-radius:10px;
+background:#161616;
+color:#ff4d4d;
+font-weight:bold;
+border:1px solid #ff2a2a;
+cursor:pointer;
+}
+
+.pkg:hover{
+background:#ff1a1a;
+color:#fff;
+}
+
+.close{
+width:100%;
+padding:11px;
+border:none;
+border-radius:10px;
+background:#ff1a1a;
+color:#fff;
+font-weight:bold;
+cursor:pointer;
+margin-top:5px;
+}
+
+.back{
+max-width:430px;
+margin:8px auto 28px;
+padding:0 15px;
+}
+
+.back a{
+display:block;
+text-align:center;
+padding:12px;
+border:1px solid #ff2a2a;
+border-radius:12px;
+text-decoration:none;
+color:#ff2a2a;
+}
+
+audio{
+display:none;
+}
+</style>
+</head>
+
+<body>
+
+<canvas id="matrix"></canvas>
+
+<audio id="bgm" autoplay loop>
+<source src="lagu.mp3">
+</audio>
+
+<div class="header">
+<h1>APK BUG STORE</h1>
+<p>RED ACCESS DATABASE</p>
+</div>
+
+<div class="wrap">
+
+<!-- CARD 1 -->
+<div class="card">
+<img src="apk1.jpg" class="apkimg">
+<div class="name">TREDICT INVICTUS</div>
+<button class="btn" onclick="openPop('pop1')">LIHAT DETAIL</button>
+</div>
+
+<!-- CARD 2 -->
+<div class="card">
+<img src="apk2.jpg" class="apkimg">
+<div class="name">MANTA X RAT</div>
+<button class="btn" onclick="openPop('pop2')">LIHAT DETAIL</button>
+</div>
+
+</div>
+
+<div class="back">
+<a href="index.html">⬅ KEMBALI</a>
+</div>
+
+<!-- POPUP TREDICT -->
+<div class="popup" id="pop1">
+<div class="box">
+<h2>TREDICT INVICTUS</h2>
+
+<button class="pkg" onclick="orderWA('TREDICT INVICTUS','1 Day','5K')">1 Day - 5K</button>
+<button class="pkg" onclick="orderWA('TREDICT INVICTUS','7 Day','15K')">7 Day - 15K</button>
+<button class="pkg" onclick="orderWA('TREDICT INVICTUS','30 Day','60K')">30 Day - 60K</button>
+<button class="pkg" onclick="orderWA('TREDICT INVICTUS','60 Day','90K')">60 Day - 90K</button>
+<button class="pkg" onclick="orderWA('TREDICT INVICTUS','365 Day Permanent','140K')">365 Day Permanent - 140K</button>
+<button class="pkg" onclick="orderWA('TREDICT INVICTUS','Reseller Permanent','170K')">Reseller - 170K</button>
+<button class="pkg" onclick="orderWA('TREDICT INVICTUS','Admin Permanent Access','250K')">Admin - 250K</button>
+
+<button class="close" onclick="closePop('pop1')">TUTUP</button>
+</div>
+</div>
+
+<!-- POPUP MANTA -->
+<div class="popup" id="pop2">
+<div class="box">
+<h2>MANTA X RAT</h2>
+
+<button class="pkg" onclick="orderWA('MANTA X RAT','30 Day','40K')">30 Day - 40K</button>
+<button class="pkg" onclick="orderWA('MANTA X RAT','Permanent','60K')">Permanent - 60K</button>
+<button class="pkg" onclick="orderWA('MANTA X RAT','Reseller','80K')">Reseller - 80K</button>
+
+<button class="close" onclick="closePop('pop2')">TUTUP</button>
+</div>
+</div>
+
+<script>
+/* popup */
+function openPop(id){
+document.getElementById(id).style.display="flex";
+}
+function closePop(id){
+document.getElementById(id).style.display="none";
+}
+
+/* wa order */
+function orderWA(apk,paket,harga){
+let msg =
+`Halo bang, saya mau order:%0A%0A`+
+`${apk}%0A`+
+`Paket: ${paket}%0A`+
+`Harga: ${harga}`;
+
+window.location.href=
+`https://wa.me/6285798898725?text=${msg}`;
+}
+
+/* autoplay fallback */
+document.body.addEventListener("click",()=>{
+document.getElementById("bgm").play();
+},{once:true});
+
+/* matrix */
+const canvas=document.getElementById("matrix");
+const ctx=canvas.getContext("2d");
+
+canvas.width=innerWidth;
+canvas.height=innerHeight;
+
+let letters="01アカサタナハマヤラワ".split("");
+let size=16;
+let cols=canvas.width/size;
+let drops=Array(Math.floor(cols)).fill(1);
+
+function draw(){
+ctx.fillStyle="rgba(0,0,0,0.06)";
+ctx.fillRect(0,0,canvas.width,canvas.height);
+
+ctx.fillStyle="#ff1a1a";
+ctx.font=size+"px monospace";
+
+for(let i=0;i<drops.length;i++){
+let t=letters[Math.floor(Math.random()*letters.length)];
+ctx.fillText(t,i*size,drops[i]*size);
+
+if(drops[i]*size>canvas.height && Math.random()>.975){
+drops[i]=0;
+}
+drops[i]++;
+}
+}
+
+setInterval(draw,33);
+
+onresize=()=>{
+canvas.width=innerWidth;
+canvas.height=innerHeight;
+}
+</script>
+
+</body>
+</html>

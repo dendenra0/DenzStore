@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>JASA WEB | DENZ STORE</title>
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
+body{
+min-height:100vh;
+overflow-x:hidden;
+background:
+linear-gradient(135deg,#f8fbff,#eef4ff,#ffffff);
+color:#111;
+position:relative;
+}
+
+/* background glow */
+body::before,
+body::after{
+content:"";
+position:fixed;
+width:260px;
+height:260px;
+border-radius:50%;
+filter:blur(70px);
+z-index:-1;
+opacity:.55;
+}
+
+body::before{
+top:-60px;
+left:-60px;
+background:#6fb6ff;
+}
+
+body::after{
+right:-60px;
+bottom:-60px;
+background:#d4b8ff;
+}
+
+/* header */
+.header{
+text-align:center;
+padding:30px 18px 18px;
+}
+
+.badge{
+display:inline-block;
+padding:7px 14px;
+border-radius:999px;
+background:rgba(255,255,255,.75);
+backdrop-filter:blur(12px);
+border:1px solid rgba(255,255,255,.9);
+box-shadow:0 10px 24px rgba(0,0,0,.06);
+font-size:12px;
+font-weight:700;
+color:#4a63ff;
+margin-bottom:14px;
+}
+
+.header h1{
+font-size:32px;
+font-weight:900;
+letter-spacing:1px;
+line-height:1.1;
+margin-bottom:8px;
+}
+
+.header p{
+font-size:14px;
+color:#666;
+max-width:320px;
+margin:auto;
+line-height:1.5;
+}
+
+/* wrap */
+.wrap{
+max-width:430px;
+margin:auto;
+padding:16px;
+display:grid;
+gap:18px;
+}
+
+/* card */
+.card{
+background:rgba(255,255,255,.72);
+backdrop-filter:blur(14px);
+border:1px solid rgba(255,255,255,.95);
+border-radius:24px;
+padding:18px;
+box-shadow:
+0 18px 35px rgba(0,0,0,.08),
+inset 0 1px 0 rgba(255,255,255,.8);
+transition:.25s;
+}
+
+.card:active{
+transform:scale(.985);
+}
+
+.topline{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:10px;
+gap:10px;
+}
+
+.title{
+font-size:22px;
+font-weight:900;
+line-height:1.1;
+}
+
+.level{
+font-size:11px;
+font-weight:800;
+padding:6px 10px;
+border-radius:999px;
+background:#111;
+color:#fff;
+}
+
+.price{
+font-size:28px;
+font-weight:900;
+margin:6px 0 12px;
+background:linear-gradient(90deg,#4d7cff,#8b5cff);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+}
+
+.card ul{
+padding-left:18px;
+line-height:1.9;
+font-size:14px;
+color:#333;
+margin-bottom:15px;
+}
+
+/* button */
+.btn{
+width:100%;
+padding:14px;
+border:none;
+border-radius:16px;
+cursor:pointer;
+font-size:15px;
+font-weight:800;
+color:#fff;
+background:linear-gradient(90deg,#4d7cff,#8b5cff);
+box-shadow:0 14px 25px rgba(77,124,255,.28);
+}
+
+.btn:active{
+transform:scale(.98);
+}
+
+/* best seller */
+.hot{
+position:relative;
+overflow:hidden;
+}
+
+.ribbon{
+position:absolute;
+top:14px;
+right:-38px;
+transform:rotate(35deg);
+background:#111;
+color:#fff;
+font-size:10px;
+font-weight:800;
+padding:6px 40px;
+}
+
+/* back */
+.back{
+max-width:430px;
+margin:8px auto 32px;
+padding:0 16px;
+}
+
+.back a{
+display:block;
+text-align:center;
+padding:14px;
+text-decoration:none;
+font-weight:800;
+color:#111;
+background:rgba(255,255,255,.72);
+backdrop-filter:blur(14px);
+border-radius:18px;
+border:1px solid rgba(255,255,255,.95);
+box-shadow:0 14px 28px rgba(0,0,0,.06);
+}
+
+audio{
+display:none;
+}
+</style>
+</head>
+
+<body>
+
+<audio id="bgm" autoplay loop>
+<source src="lagu.mp3">
+</audio>
+
+<div class="header">
+<div class="badge">DENZ DIGITAL SERVICE</div>
+<h1>JASA WEB PREMIUM</h1>
+<p>Bikin website modern buat jualan, profil bisnis, portofolio, dan toko online.</p>
+</div>
+
+<div class="wrap">
+
+<!-- SIMPLE -->
+<div class="card">
+<div class="topline">
+<div class="title">WEB SIMPLE</div>
+<div class="level">STARTER</div>
+</div>
+
+<div class="price">15K</div>
+
+<ul>
+<li>1 halaman utama</li>
+<li>Desain clean & rapi</li>
+<li>Tombol WhatsApp / Sosmed</li>
+<li>Mobile friendly</li>
+<li>Pengerjaan cepat</li>
+</ul>
+
+<button class="btn" onclick="orderWA('WEB SIMPLE','15K')">
+PESAN SEKARANG
+</button>
+</div>
+
+<!-- PREMIUM -->
+<div class="card hot">
+<div class="ribbon">BEST</div>
+
+<div class="topline">
+<div class="title">WEB PREMIUM</div>
+<div class="level">PRO</div>
+</div>
+
+<div class="price">30K</div>
+
+<ul>
+<li>3 halaman menu</li>
+<li>Animasi modern premium</li>
+<li>Intro pembuka keren</li>
+<li>Desain custom sesuai request</li>
+<li>1x revisi gratis</li>
+</ul>
+
+<button class="btn" onclick="orderWA('WEB PREMIUM','30K')">
+PESAN SEKARANG
+</button>
+</div>
+
+<!-- STORE -->
+<div class="card">
+<div class="topline">
+<div class="title">WEB STORE</div>
+<div class="level">ELITE</div>
+</div>
+
+<div class="price">60K</div>
+
+<ul>
+<li>Multi halaman lengkap</li>
+<li>Katalog produk profesional</li>
+<li>Order otomatis ke WhatsApp</li>
+<li>Counter pengunjung</li>
+<li>UI premium + support update</li>
+</ul>
+
+<button class="btn" onclick="orderWA('WEB STORE','60K')">
+PESAN SEKARANG
+</button>
+</div>
+
+</div>
+
+<div class="back">
+<a href="index.html">⬅ KEMBALI</a>
+</div>
+
+<script>
+function orderWA(paket,harga){
+let msg =
+`Halo bang, saya mau pesan jasa web:%0A%0A`+
+`Paket: ${paket}%0A`+
+`Harga: ${harga}`;
+
+window.location.href=
+`https://wa.me/6285798898725?text=${msg}`;
+}
+
+/* autoplay fallback */
+document.body.addEventListener("click",()=>{
+document.getElementById("bgm").play();
+},{once:true});
+</script>
+
+</body>
+</html>

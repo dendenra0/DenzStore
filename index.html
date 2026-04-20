@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>DENZ STORE SYSTEM</title>
+
+<style>
+body{
+margin:0;
+font-family:Arial;
+background:black;
+overflow:hidden;
+color:#00b7ff;
+height:100%;
+}
+
+/* MATRIX */
+canvas{
+position:fixed;
+top:0;
+left:0;
+z-index:-5;
+}
+
+/* INTRO FIX STABLE */
+#intro{
+position:fixed;
+inset:0;
+width:100%;
+height:100vh;
+background:black;
+display:flex;
+justify-content:center;
+align-items:center;
+flex-direction:column;
+z-index:99999;
+padding-top:0;
+box-sizing:border-box;
+transition:opacity 1.2s ease;
+}
+
+/* GLITCH */
+.glitch{
+font-size:34px;
+color:white;
+letter-spacing:5px;
+animation:glitch 0.8s infinite;
+}
+
+@keyframes glitch{
+0%{text-shadow:2px 2px red,-2px -2px blue;}
+25%{text-shadow:-2px 2px red,2px -2px blue;}
+50%{text-shadow:2px -2px red,-2px 2px blue;}
+75%{text-shadow:-1px 1px red,1px -1px blue;}
+100%{text-shadow:2px 2px red,-2px -2px blue;}
+}
+
+/* SCANLINE */
+.scanline{
+position:absolute;
+width:100%;
+height:3px;
+background:#00b7ff;
+animation:scan 2s linear infinite;
+opacity:0.3;
+top:0;
+left:0;
+}
+
+@keyframes scan{
+0%{top:0;}
+100%{top:100%;}
+}
+
+/* STATUS */
+.status{
+margin-top:10px;
+font-size:14px;
+animation:blink 1s infinite;
+}
+
+@keyframes blink{
+50%{opacity:0.2;}
+}
+
+/* MENU */
+#menu{
+display:flex;
+flex-direction:column;
+align-items:center;
+margin-top:90px;
+gap:14px;
+}
+
+.btn{
+width:260px;
+padding:14px;
+border:1px solid #00b7ff;
+background:rgba(0,0,0,0.5);
+color:#00b7ff;
+border-radius:8px;
+cursor:pointer;
+transition:0.2s;
+font-weight:bold;
+letter-spacing:1px;
+}
+
+.btn:hover{
+background:#00b7ff;
+color:black;
+transform:scale(1.05);
+box-shadow:0 0 20px #00b7ff;
+}
+
+/* BRAND CENTER */
+#brand{
+position:fixed;
+top:500px;
+left:50%;
+transform:translateX(-50%);
+font-size:26px;
+font-weight:900;
+letter-spacing:6px;
+color:white;
+text-shadow:0 0 10px #00b7ff,0 0 25px #00b7ff;
+white-space:nowrap;
+animation:glitch 1.2s infinite;
+pointer-events:none;
+z-index:1;
+opacity:0.9;
+}
+
+#viewsBox{
+position:fixed;
+top:15px;
+right:15px;
+background:rgba(0,0,0,0.75);
+color:#00b7ff;
+padding:8px 14px;
+border:1px solid #00b7ff;
+border-radius:10px;
+font-size:13px;
+z-index:999;
+box-shadow:0 0 10px #00b7ff;
+}
+
+/* MUSIC */
+#music{
+position:fixed;
+bottom:20px;
+left:50%;
+transform:translateX(-50%);
+background:rgba(10,10,10,0.85);
+padding:12px;
+border:1px solid #00b7ff;
+border-radius:12px;
+width:220px;
+text-align:center;
+z-index:3;
+}
+audio{
+width:100%;
+}
+</style>
+</head>
+
+<body>
+
+<canvas id="matrix"></canvas>
+
+<!-- INTRO -->
+<div id="intro">
+<div class="scanline"></div>
+<div class="glitch">DENZ STORE</div>
+<div class="status" id="status">SYSTEM CHECKING...</div>
+</div>
+
+<!-- MENU -->
+<div id="menu" class="page active">
+<button class="btn" onclick="go('apk.html')">APK BUG</button>
+<button class="btn" onclick="go('web.html')">JASA WEB</button>
+<button class="btn" onclick="go('sosmed.html')">SUNTIK SOSMED</button>
+<button class="btn" onclick="go('panel.html')">PANEL</button>
+<button class="btn" onclick="go('payment.html')">PAYMENT</button>
+</div>
+
+<!-- BRAND -->
+<div id="brand">DENZ TEMPEST</div>
+
+<!-- MUSIC -->
+<div id="music">
+<p style="margin:0;font-size:12px;">🎵 GOOD FORBID IS IT HAS TO BEGAY</p>
+<p style="margin:4px 0;font-size:11px;">Daruni Sarnthong</p>
+
+<audio id="bgm" controls autoplay loop>
+<source src="lagu.mp3">
+</audio>
+</div>
+<div id="viewsBox">👁 Loading views...</div>
+<script>
+
+/* INTRO STABLE FIX (NO BUG, NO KECEPETAN) */
+setTimeout(()=>{
+const intro = document.getElementById("intro");
+intro.style.opacity = "0";
+
+setTimeout(()=>{
+intro.style.display = "none";
+},1200);
+
+},6000);
+
+/* MUSIC AUTO START FIX */
+window.addEventListener("click",()=>{
+document.getElementById("bgm").play();
+});
+
+/* STATUS TEXT */
+let txt=[
+"SYSTEM CHECKING...",
+"SCANNING FILES...",
+"BYPASS SECURITY...",
+"ACCESS GRANTED ✔"
+];
+
+let i=0;
+setInterval(()=>{
+document.getElementById("status").innerText=txt[i];
+i++;
+if(i>=txt.length)i=txt.length-1;
+},1200);
+
+/* NAV */
+function go(page){
+window.location.href=page;
+}
+
+/* MATRIX */
+const canvas=document.getElementById("matrix");
+const ctx=canvas.getContext("2d");
+
+canvas.height=window.innerHeight;
+canvas.width=window.innerWidth;
+
+let letters="01アイウエオカキクケコサシスセソ".split("");
+let fontSize=14;
+let columns=canvas.width/fontSize;
+let drops=Array(Math.floor(columns)).fill(1);
+
+function draw(){
+ctx.fillStyle="rgba(0,0,0,0.05)";
+ctx.fillRect(0,0,canvas.width,canvas.height);
+
+ctx.fillStyle="#00b7ff";
+ctx.font=fontSize+"px monospace";
+
+for(let i=0;i<drops.length;i++){
+let text=letters[Math.floor(Math.random()*letters.length)];
+ctx.fillText(text,i*fontSize,drops[i]*fontSize);
+
+if(drops[i]*fontSize>canvas.height&&Math.random()>0.975)
+drops[i]=0;
+
+drops[i]++;
+}
+}
+setInterval(draw,33);
+
+</script>
+<script type="module">
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+import {
+getFirestore,
+doc,
+getDoc,
+updateDoc,
+setDoc,
+increment
+}
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+const firebaseConfig = {
+apiKey: "AIzaSyDBUfl3hDRM1W5KNh9FVkuIFwnxUBAY8Qk",
+authDomain: "denzstore-7715f.firebaseapp.com",
+projectId: "denzstore-7715f",
+storageBucket: "denzstore-7715f.firebasestorage.app",
+messagingSenderId: "449520987997",
+appId: "1:449520987997:web:1137b30b1da952744142b4"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+const ref = doc(db, "stats", "views");
+
+async function runCounter(){
+
+const snap = await getDoc(ref);
+
+if(!snap.exists()){
+await setDoc(ref,{count:0});
+}
+
+await updateDoc(ref,{
+count: increment(1)
+});
+
+const newSnap = await getDoc(ref);
+const total = newSnap.data().count;
+
+document.getElementById("viewsBox").innerText =
+"👁 Dilihat " + total + " orang";
+
+}
+
+runCounter();
+
+</script>
+</body>
+</html>

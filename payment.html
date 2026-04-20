@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>PAYMENT CENTER | GALAXY NEON</title>
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
+body{
+min-height:100vh;
+overflow-x:hidden;
+background:
+radial-gradient(circle at 20% 20%,#ff00ff22,transparent 20%),
+radial-gradient(circle at 80% 30%,#00e5ff22,transparent 20%),
+radial-gradient(circle at 50% 80%,#7b61ff22,transparent 20%),
+linear-gradient(135deg,#050510,#0b0b1f,#111133,#080814);
+color:#fff;
+position:relative;
+}
+
+/* stars */
+body::before{
+content:"";
+position:fixed;
+inset:0;
+background-image:
+radial-gradient(#ffffff88 1px,transparent 1px);
+background-size:24px 24px;
+opacity:.18;
+z-index:-1;
+}
+
+/* glow line */
+body::after{
+content:"";
+position:fixed;
+inset:0;
+background:linear-gradient(
+120deg,
+transparent 0%,
+rgba(255,255,255,.03) 45%,
+transparent 60%
+);
+animation:shine 8s linear infinite;
+z-index:-1;
+}
+
+@keyframes shine{
+0%{transform:translateX(-100%);}
+100%{transform:translateX(100%);}
+}
+
+/* header */
+.header{
+text-align:center;
+padding:34px 18px 18px;
+}
+
+.badge{
+display:inline-block;
+padding:8px 16px;
+border-radius:999px;
+background:rgba(255,255,255,.08);
+border:1px solid rgba(255,255,255,.14);
+font-size:12px;
+font-weight:900;
+letter-spacing:1px;
+margin-bottom:14px;
+backdrop-filter:blur(14px);
+color:#cce6ff;
+}
+
+.header h1{
+font-size:35px;
+font-weight:900;
+margin-bottom:8px;
+background:linear-gradient(90deg,#ff4dff,#00e5ff,#8a6bff);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+}
+
+.header p{
+font-size:14px;
+color:#d8ddff;
+}
+
+/* wrap */
+.wrap{
+max-width:430px;
+margin:auto;
+padding:16px;
+display:grid;
+gap:16px;
+}
+
+/* card */
+.card{
+background:rgba(255,255,255,.07);
+border:1px solid rgba(255,255,255,.12);
+backdrop-filter:blur(18px);
+border-radius:26px;
+padding:18px;
+box-shadow:
+0 20px 40px rgba(0,0,0,.35),
+0 0 22px rgba(123,97,255,.12);
+}
+
+.title{
+font-size:18px;
+font-weight:900;
+margin-bottom:10px;
+color:#ffffff;
+}
+
+.num{
+font-size:22px;
+font-weight:900;
+margin-bottom:6px;
+color:#00e5ff;
+}
+
+.name{
+font-size:14px;
+color:#dfe6ff;
+margin-bottom:14px;
+}
+
+/* button */
+.btn{
+width:100%;
+padding:14px;
+border:none;
+border-radius:18px;
+font-size:14px;
+font-weight:900;
+cursor:pointer;
+color:#fff;
+background:linear-gradient(90deg,#ff4dff,#8a6bff,#00e5ff);
+background-size:200% 200%;
+animation:flow 3s linear infinite;
+box-shadow:0 15px 28px rgba(123,97,255,.22);
+}
+
+@keyframes flow{
+0%{background-position:0% 50%;}
+100%{background-position:100% 50%;}
+}
+
+.btn:active{
+transform:scale(.98);
+}
+
+/* note */
+.note{
+font-size:13px;
+line-height:1.6;
+color:#d8ddff;
+text-align:center;
+padding:6px 12px;
+}
+
+/* popup */
+#popup{
+position:fixed;
+inset:0;
+background:rgba(0,0,0,.88);
+display:none;
+justify-content:center;
+align-items:center;
+z-index:999;
+padding:20px;
+}
+
+.box{
+background:#101025;
+padding:18px;
+border-radius:24px;
+max-width:360px;
+width:100%;
+text-align:center;
+border:1px solid rgba(255,255,255,.08);
+}
+
+.box img{
+width:100%;
+border-radius:18px;
+margin-bottom:14px;
+}
+
+.close{
+width:100%;
+padding:13px;
+border:none;
+border-radius:16px;
+font-weight:900;
+background:linear-gradient(90deg,#ff4dff,#00e5ff);
+color:#fff;
+}
+
+/* back */
+.back{
+max-width:430px;
+margin:10px auto 30px;
+padding:0 16px;
+}
+
+.back a{
+display:block;
+text-align:center;
+padding:14px;
+text-decoration:none;
+font-weight:900;
+color:#fff;
+border-radius:18px;
+background:rgba(255,255,255,.07);
+border:1px solid rgba(255,255,255,.10);
+}
+
+#toast{
+position:fixed;
+bottom:20px;
+left:50%;
+transform:translateX(-50%);
+background:linear-gradient(90deg,#ff4dff,#00e5ff);
+padding:12px 18px;
+border-radius:14px;
+font-size:13px;
+font-weight:900;
+display:none;
+z-index:1000;
+}
+
+audio{
+display:none;
+}
+</style>
+</head>
+
+<body>
+
+<audio id="bgm" autoplay loop>
+<source src="lagu.mp3">
+</audio>
+
+<div class="header">
+<div class="badge">UNIVERSE PAYMENT SYSTEM</div>
+<h1>PAYMENT CENTER</h1>
+<p>Transfer cepat, aman, dan konfirmasi otomatis.</p>
+</div>
+
+<div class="wrap">
+
+<div class="card">
+<div class="title">💳 DANA</div>
+<div class="num">085798898725</div>
+<div class="name">a.n DINDA</div>
+<button class="btn" onclick="copyDana()">COPY NOMOR</button>
+</div>
+
+<div class="card">
+<div class="title">📷 QRIS</div>
+<div class="name">Scan semua e-wallet / m-banking</div>
+<button class="btn" onclick="openQRIS()">LIHAT QRIS</button>
+</div>
+
+<div class="card">
+<div class="title">📲 KONFIRMASI</div>
+<div class="name">Kirim bukti pembayaran ke admin.</div>
+<button class="btn" onclick="confirmWA()">SAYA SUDAH BAYAR</button>
+</div>
+
+</div>
+
+<div class="note">
+Pastikan nominal sesuai pesanan agar proses lebih cepat.
+</div>
+
+<div class="back">
+<a href="index.html">⬅ KEMBALI</a>
+</div>
+
+<div id="popup">
+<div class="box">
+<img src="qris.jpg">
+<button class="close" onclick="closeQRIS()">TUTUP</button>
+</div>
+</div>
+
+<div id="toast">Nomor berhasil disalin</div>
+
+<script>
+function copyDana(){
+navigator.clipboard.writeText("085798898725");
+showToast();
+}
+
+function showToast(){
+let t=document.getElementById("toast");
+t.style.display="block";
+setTimeout(()=>{t.style.display="none"},2000);
+}
+
+function openQRIS(){
+document.getElementById("popup").style.display="flex";
+}
+
+function closeQRIS(){
+document.getElementById("popup").style.display="none";
+}
+
+function confirmWA(){
+let msg="Halo bang, saya sudah melakukan pembayaran dan ingin konfirmasi.";
+window.location.href=
+"https://wa.me/6285798898725?text="+encodeURIComponent(msg);
+}
+
+document.body.addEventListener("click",()=>{
+document.getElementById("bgm").play();
+},{once:true});
+</script>
+
+</body>
+</html>
