@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>DENZ STORE - SUNTIK SOSMED</title>
+
+<style>
+body{
+    margin:0;
+    font-family:Arial;
+    background: radial-gradient(circle at top,#0f0f0f,#050505);
+    color:white;
+}
+
+.header{
+    text-align:center;
+    padding:20px;
+    font-size:26px;
+    font-weight:bold;
+    color:#00ffcc;
+    text-shadow:0 0 12px #00ffcc;
+}
+
+.box{
+    max-width:500px;
+    margin:auto;
+    padding:15px;
+}
+
+.card{
+    background:#111;
+    padding:18px;
+    border-radius:15px;
+    box-shadow:0 0 20px rgba(0,255,200,0.15);
+}
+
+label{
+    display:block;
+    margin-top:10px;
+    color:#aaa;
+}
+
+select,input{
+    width:100%;
+    padding:10px;
+    border-radius:10px;
+    margin-top:5px;
+    border:none;
+    outline:none;
+    background:#1c1c1c;
+    color:white;
+}
+
+button{
+    width:100%;
+    padding:12px;
+    margin-top:12px;
+    border:none;
+    border-radius:12px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.btn1{
+    background:linear-gradient(90deg,#00ffcc,#00aaff);
+    color:black;
+}
+
+.btn2{
+    background:linear-gradient(90deg,#ff00cc,#00ffcc);
+    color:black;
+}
+
+.result{
+    margin-top:12px;
+    text-align:center;
+    color:#ffd700;
+}
+</style>
+</head>
+
+<body>
+
+<!-- 🔊 MUSIC AUTOPLAY LOOP -->
+<audio autoplay loop>
+    <source src="lagu.mp3" type="audio/mpeg">
+</audio>
+
+<div class="header">🔥 DENZ STORE SUNTIK 🔥</div>
+
+<div class="box">
+<div class="card">
+
+<label>Platform</label>
+<select id="platform" onchange="updateKategori()">
+<option value="">Pilih</option>
+<option value="saluran">Saluran</option>
+<option value="ig">Instagram</option>
+<option value="tiktok">TikTok</option>
+</select>
+
+<label>Kategori</label>
+<select id="kategori" onchange="updateJumlah()"></select>
+
+<label>Jumlah</label>
+<select id="jumlah"></select>
+
+<label>Link / Username</label>
+<input id="link" placeholder="Masukkan link VT / IG / Saluran">
+
+<button class="btn1" onclick="hitung()">HITUNG TOTAL</button>
+<div class="result" id="hasil"></div>
+
+<button class="btn2" onclick="pesan()">PESAN VIA WHATSAPP</button>
+
+</div>
+</div>
+
+<script>
+
+const harga = {
+saluran:{
+followers:{
+50:2000,100:4000,150:7000,200:10000,250:11000,
+300:13000,350:15000,400:17000,450:19000,500:22000
+}
+},
+
+ig:{
+followers:{
+100:1000,200:2000,300:3000,400:4000,500:5000,
+600:6000,700:7000,800:8000,900:9000,1000:10000
+}
+},
+
+tiktok:{
+views:{
+5000:3000,10000:6000,15000:9000,20000:12000,
+25000:15000,30000:20000,35000:25000,40000:30000,
+45000:35000,50000:40000
+},
+likes:{
+250:2000,500:3000,750:4000,1000:5000,
+1250:6000,1500:7000,1750:8000,2000:10000
+},
+followers:{
+25:1000,50:2000,75:2500,100:3000,125:3500,
+150:4000,175:4500,200:5000,225:5500,250:6000,
+275:6500,300:7000,500:15000,1000:30000
+}
+}
+};
+
+let totalHarga = 0;
+
+function updateKategori(){
+let p = document.getElementById("platform").value;
+let k = document.getElementById("kategori");
+
+k.innerHTML="";
+
+if(p=="saluran") k.innerHTML=`<option value="followers">Pengikut Saluran</option>`;
+if(p=="ig") k.innerHTML=`<option value="followers">Followers</option>`;
+if(p=="tiktok") k.innerHTML=`
+<option value="views">Views</option>
+<option value="likes">Likes</option>
+<option value="followers">Followers</option>`;
+
+updateJumlah();
+}
+
+function updateJumlah(){
+let p=document.getElementById("platform").value;
+let k=document.getElementById("kategori").value;
+let j=document.getElementById("jumlah");
+
+j.innerHTML="";
+if(!p||!k) return;
+
+Object.keys(harga[p][k]).forEach(v=>{
+let opt=document.createElement("option");
+opt.value=v;
+opt.text=v;
+j.appendChild(opt);
+});
+}
+
+function hitung(){
+let p=document.getElementById("platform").value;
+let k=document.getElementById("kategori").value;
+let j=document.getElementById("jumlah").value;
+
+totalHarga = harga[p][k][j];
+
+document.getElementById("hasil").innerHTML =
+"TOTAL HARGA: "+totalHarga;
+}
+
+function pesan(){
+let p=document.getElementById("platform").value;
+let k=document.getElementById("kategori").value;
+let j=document.getElementById("jumlah").value;
+let link=document.getElementById("link").value;
+
+if(!totalHarga){
+alert("Klik HITUNG TOTAL dulu!");
+return;
+}
+
+let msg =
+`🔥 DENZ STORE ORDER
+
+Platform: ${p}
+Kategori: ${k}
+Jumlah: ${j}
+Link: ${link}
+Total: ${totalHarga}`;
+
+let wa="https://wa.me/6285798898725?text="+encodeURIComponent(msg);
+
+window.open(wa,"_blank");
+}
+
+</script>
+
+</body>
+</html>
